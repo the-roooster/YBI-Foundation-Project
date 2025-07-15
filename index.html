@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guest List Manager</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        form { margin: 20px 0; }
+        input, select { padding: 8px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Event Guest List Manager</h1>
+    
+    <h2>Add New Guest</h2>
+    <form method="POST" action="/add">
+        <input type="text" name="name" placeholder="Guest Name" required><br>
+        <input type="text" name="event" placeholder="Event Name" required><br>
+        <select name="status" required>
+            <option value="">Select RSVP Status</option>
+            <option value="Attending">Attending</option>
+            <option value="Not Attending">Not Attending</option>
+            <option value="Pending">Pending</option>
+        </select><br>
+        <button type="submit">Add Guest</button>
+    </form>
+    
+    <h2>Guest List</h2>
+    {% if guests %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Event</th>
+            <th>Status</th>
+        </tr>
+        {% for guest in guests %}
+        <tr>
+            <td>{{ guest[0] }}</td>
+            <td>{{ guest[1] }}</td>
+            <td>{{ guest[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No guests added yet.</p>
+    {% endif %}
+    
+    <p><a href="/export">Export to CSV</a></p>
+</body>
+</html>
